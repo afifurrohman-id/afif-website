@@ -1,0 +1,8 @@
+# editor
+
+.vscode
+.prettierrc
+
+# hosting
+*.log
+.firebase*

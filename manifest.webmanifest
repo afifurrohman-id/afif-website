@@ -1,0 +1,46 @@
+{
+  "name": "Personal App Afif",
+  "short_name": "Afif App",
+  "description": "Afif Personal Application",
+  "id": "/",
+  "scope": "/",
+  "start_url": "/",
+  "background_color": "black",
+  "theme_color": "#0ea5e9",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/afif-id.appspot.com/o/assets-projects%2Ficons%2Ficon.png?alt=media&token=54f7ba93-04f3-4e8c-aef4-db4b3c0456c4",
+      "type": "image/png",
+      "sizes": "48x48",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/afif-id.appspot.com/o/assets-projects%2Ficons%2Ficon-144x144.png?alt=media&token=7d4d27ab-9415-4799-a2e8-1a34a5defa2a",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/afif-id.appspot.com/o/assets-projects%2Ficons%2Ficon-512x512.png?alt=media&token=02058ecb-6ecc-4771-8056-6f3c42c91509",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Blog",
+      "description": "View Recent posts",
+      "url": "/index.html#blog",
+      "icons": [
+        {
+          "src": "https://firebasestorage.googleapis.com/v0/b/afif-id.appspot.com/o/assets-projects%2Ficons%2Ficon-96x96.png?alt=media&token=382e260a-02bb-4672-a458-306fbf59ef02",
+          "type": "image/png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "orientation": "any"
+}

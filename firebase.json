@@ -1,0 +1,32 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*"
+    ],
+    "redirects":[
+      {
+        "source":"/blog",
+        "destination":"/index.html#blog",
+        "type":301
+      }
+    ]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "emulators": {
+    "hosting": {
+      "port":8080
+    },
+    "database": {
+      "port": 6100
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}
+
