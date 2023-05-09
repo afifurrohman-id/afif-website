@@ -5,7 +5,7 @@
   "id": "/",
   "scope": "/",
   "start_url": "/",
-  "background_color": "black",
+  "background_color": "#000000",
   "theme_color": "#0ea5e9",
   "display": "standalone",
   "icons": [
@@ -42,5 +42,8 @@
       ]
     }
   ],
-  "orientation": "any"
+  "orientation": "any",
+  "display_override": [
+    "standalone"
+  ]
 }
