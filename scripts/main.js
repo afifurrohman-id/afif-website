@@ -1,15 +1,11 @@
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then((registration) =>
-        console.info(
-          `%c Service worker registered with scope: ${registration.scope}`,
-          'font-weight:bold; color: cyan'
-        )
-      )
-      .catch((error) => console.error(error))
-  })
+  const registration = await navigator.serviceWorker.register(
+    '/service-worker.js'
+  )
+  console.info(
+    `%c Service worker registered with scope: ${registration.scope}`,
+    'font-weight:bold; color: cyan'
+  )
 }
 
 async function getFirebaseDatabase(databaseName) {
@@ -53,11 +49,11 @@ async function postView() {
     content +=
       /*html*/
       `<a href=${post.url} class="card-article">
-          <h1>${post.title}</h1>
-          <p>${post.description}</p>
-          <p>${post.date}</p>
-          <p>read more</p>
-        </a>`
+            <h1>${post.title}</h1>
+            <p>${post.description}</p>
+            <p>${post.date}</p>
+            <p>read more</p>
+          </a>`
   })
 
   wrapper.insertAdjacentHTML('afterbegin', content)
@@ -83,7 +79,6 @@ function handleToggle() {
   const toggleMenu = body.querySelector('.toggle-menu')
   const toggleTheme = menu.querySelector('.toggle-theme')
 
-
   toggleMenu.addEventListener('click', () => {
     const menuItems = menu.querySelectorAll('a')
     menuItems.forEach((item) => {
@@ -100,7 +95,6 @@ function handleToggle() {
     classToRemove = 'light',
     theme = 'dark'
   ) {
-
     body.classList.add(classToAdd)
     body.classList.remove(classToRemove)
     localStorage.setItem('theme', theme)
