@@ -141,6 +141,36 @@ body {
   text-align: center;
 }
 
+.welcome-text-wrapper {
+  display: inline-block;
+}
+
+.welcome-text {
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-weight: bold;
+  animation: typing 1.6s steps(18), blink-cursor 550ms step-end infinite alternate;
+  border-right: 3px solid red;
+  overflow-x: hidden;
+  transition: all 500ms;
+  font-size: 8vw;
+}
+
+@keyframes typing {
+  from {
+    width: 0%;
+  }
+}
+
+@keyframes blink-cursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
 #blog {
   display: grid;
   place-items: center;
@@ -272,6 +302,9 @@ noscript {
   }
   #welcome {
     font-size: 3rem;
+  }
+  .welcome-text {
+    font-size: 5vw;
   }
   #content {
     grid-template-columns: repeat(3, 1fr);

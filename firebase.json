@@ -10,6 +10,11 @@
         "source":"/blog",
         "destination":"/index.html#blog",
         "type":301
+      },
+      {
+        "source":"/project",
+        "destination":"https://afifurrohman-id.github.io",
+        "type":301
       }
     ]
   },
