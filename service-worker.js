@@ -1,10 +1,5 @@
 self.addEventListener('install', (event) => event.waitUntil(registerCache()))
 self.addEventListener('fetch', (event) => event.respondWith(handleCache(event)))
-self.addEventListener(
-  'message',
-  (event) =>
-    event.data && event.data.type === 'SKIP_WAITING' && self.skipWaiting()
-)
 
 async function openCache() {
   const cacheAfif = `afif-web-cache`
