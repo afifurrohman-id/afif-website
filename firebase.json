@@ -15,6 +15,16 @@
         "source":"/project",
         "destination":"https://afifurrohman-id.github.io",
         "type":301
+      },
+      {
+        "source":"/todo",
+        "destination":"https://todo-afif.web.app",
+        "type":301
+      },
+      {
+        "source":"/note",
+        "destination":"https://note-afif.web.app",
+        "type":301
       }
     ]
   },

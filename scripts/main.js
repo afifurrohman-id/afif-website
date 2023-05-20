@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
 }
 
 async function getFirebaseDatabase(databaseName) {
-  const { getDatabase, get, ref } = await import(
+  const { getDatabase, get, ref, connectDatabaseEmulator } = await import(
     'https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js'
   )
 
@@ -17,12 +17,7 @@ async function getFirebaseDatabase(databaseName) {
     'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js'
   )
 
-  const getClientHostname = window.location.hostname
-
-  const urlApi =
-    getClientHostname === 'afifurrohman-id.github.io'
-      ? 'https://firebase-afif.deno.dev'
-      : '/__/firebase/init.json'
+  const urlApi = '/__/firebase/init.json'
 
   const responseApi = await fetch(urlApi)
   const dataApi = await responseApi.json()
@@ -40,6 +35,7 @@ async function getFirebaseDatabase(databaseName) {
 async function postView() {
   const wrapper = document.getElementById('content')
   const loading = wrapper.querySelector('.loading')
+  const templateUrl = `https://afifurrohman-id.github.io/`
 
   const dataSnap = await getFirebaseDatabase('posts')
   loading.remove()
@@ -48,12 +44,12 @@ async function postView() {
   dataSnap.reverse().forEach((post) => {
     content +=
       /*html*/
-      `<a href=${post.url} class="card-article">
-            <h1>${post.title}</h1>
-            <p>${post.description}</p>
-            <p>${post.date}</p>
-            <p>read more</p>
-          </a>`
+      `<a href=${templateUrl + post.url} class="card-article">
+        <h1>${post.title}</h1>
+        <p>${post.description}</p>
+        <p>${post.date}</p>
+        <p>read more</p>
+      </a>`
   })
 
   wrapper.insertAdjacentHTML('afterbegin', content)
@@ -73,46 +69,59 @@ async function socialMediaView() {
   wrapper.insertAdjacentHTML('afterbegin', content)
 }
 
-function handleToggle() {
-  const body = document.body
-  const menu = body.querySelector('.main-menu')
-  const toggleMenu = body.querySelector('.toggle-menu')
-  const toggleTheme = menu.querySelector('.toggle-theme')
+function handleToggleMenu() {
+  const menu = removeSlideMenu()
+  const toggleMenu = document.querySelector('.toggle-menu')
 
   toggleMenu.addEventListener('click', () => {
-    const menuItems = menu.querySelectorAll('a')
-    menuItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        menu.classList.remove('slide')
-      })
-    })
     menu.classList.toggle('slide')
   })
+}
 
-  // TODO: Revision Code
-  function setThemeMode(
-    classToAdd = 'dark',
-    classToRemove = 'light',
-    theme = 'dark'
-  ) {
-    body.classList.add(classToAdd)
-    body.classList.remove(classToRemove)
-    localStorage.setItem('theme', theme)
-    theme === 'dark'
-      ? (toggleTheme.innerHTML = themeIconElement())
-      : (toggleTheme.innerHTML = themeIconElement(false))
-  }
+function removeSlideMenu() {
+  const menu = document.querySelector('.main-menu')
+  const menuItems = menu.querySelectorAll('a')
 
-  toggleTheme.addEventListener('click', () => {
-    localStorage.getItem('theme') === 'dark'
-      ? setThemeMode('light', 'dark', 'light')
-      : setThemeMode()
-    menu.classList.remove('slide')
+  menuItems.forEach((item) => {
+    item.addEventListener('click', removeSlideMenu)
   })
 
-  localStorage.getItem('theme') === 'dark'
-    ? setThemeMode()
-    : setThemeMode('light', 'dark', 'light')
+  menu.classList.remove('slide')
+
+  return menu
+}
+
+function setThemeMode(
+  classToAdd = 'dark',
+  classToRemove = 'light',
+  theme = 'dark'
+) {
+  const body = document.body
+  const toggleTheme = handleThemeMode()
+
+  body.classList.add(classToAdd)
+  body.classList.remove(classToRemove)
+  localStorage.setItem('theme', theme)
+  toggleTheme.innerHTML =
+    theme === 'dark' ? themeIconElement() : themeIconElement(false)
+}
+
+function handleThemeMode() {
+  const toggleTheme = document.querySelector('.toggle-theme')
+
+  toggleTheme.addEventListener('click', reverseThemeMode)
+  return toggleTheme
+}
+
+function reverseThemeMode(isReverse) {
+  const isDarkMode = localStorage.getItem('theme') === 'dark'
+
+  if (isReverse) {
+    isDarkMode ? setThemeMode('light', 'dark', 'light') : setThemeMode()
+    removeSlideMenu()
+  } else {
+    isDarkMode ? setThemeMode() : setThemeMode('light', 'dark', 'light')
+  }
 }
 
 function themeIconElement(isDark = true) {
@@ -170,6 +179,8 @@ window.addEventListener('scroll', () => {
   } else backTopBtn.style.display = 'none'
 })
 
-document.querySelector('.main-nav') && handleToggle()
-document.querySelector('.main-footer') && (await socialMediaView())
-document.getElementById('content') && (await postView())
+socialMediaView()
+postView()
+handleToggleMenu()
+handleThemeMode()
+reverseThemeMode(false)
